@@ -192,18 +192,18 @@ export const App: React.FC = () => {
       } else if (e.key === 'f' || e.key === 'F') {
         e.preventDefault();
         handleToggleFullscreen();
-      } else if (e.key === 'w' || e.key === 'W') {
-        // 隠しショートカット: Wキーで幅に合わせる
-        e.preventDefault();
-        setZoomPreset('fit-width');
-      } else if (e.key === 'h' || e.key === 'H') {
-        // 隠しショートカット: Hキーで高さに合わせる
-        e.preventDefault();
-        setZoomPreset('fit-height');
-      } else if (e.key === 'p' || e.key === 'P') {
-        // 隠しショートカット: Pキーで全体を表示
-        e.preventDefault();
-        setZoomPreset('fit-page');
+      } else if (e.altKey) {
+        // Altキーとの組み合わせ (ブラウザのタブ切替と競合しない安全なショートカット)
+        if (e.key === 'w' || e.key === 'W') {
+          e.preventDefault();
+          setZoomPreset('fit-width');
+        } else if (e.key === 'h' || e.key === 'H') {
+          e.preventDefault();
+          setZoomPreset('fit-height');
+        } else if (e.key === 'p' || e.key === 'P' || e.key === '0') {
+          e.preventDefault();
+          setZoomPreset('fit-page');
+        }
       } else if (e.ctrlKey || e.metaKey) {
         if (e.key === '=' || e.key === '+') {
           e.preventDefault();
@@ -216,17 +216,23 @@ export const App: React.FC = () => {
         } else if (e.key === '0') {
           e.preventDefault();
           setZoomPreset('fit-page');
-        } else if (e.key === '9') {
-          e.preventDefault();
-          setZoomPreset('fit-width');
-        } else if (e.key === '8') {
-          e.preventDefault();
-          setZoomPreset('fit-height');
         } else if (e.key === '1') {
           e.preventDefault();
           setZoomPreset(undefined);
           setScale(1.0);
         }
+      } else if (e.key === 'w' || e.key === 'W') {
+        // 単独キー: W で幅に合わせる
+        e.preventDefault();
+        setZoomPreset('fit-width');
+      } else if (e.key === 'h' || e.key === 'H') {
+        // 単独キー: H で高さに合わせる
+        e.preventDefault();
+        setZoomPreset('fit-height');
+      } else if (e.key === 'p' || e.key === 'P') {
+        // 単独キー: P で全体を表示
+        e.preventDefault();
+        setZoomPreset('fit-page');
       }
     };
 
