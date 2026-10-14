@@ -1,0 +1,66 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R /Outlines 4 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Outlines /First 5 0 R /Last 6 0 R /Count 2 >>
+endobj
+5 0 obj
+<< /Title (1. Introduction) /Parent 4 0 R /Next 6 0 R /Dest [7 0 R /Fit] >>
+endobj
+6 0 obj
+<< /Title (2. Shortcuts) /Parent 4 0 R /Prev 5 0 R /Dest [9 0 R /Fit] >>
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 8 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 306 >>
+stream
+BT /F1 24 Tf 70 700 Td (PDF Viewer Sample Document) Tj /F1 14 Tf 0 -40 Td (Welcome to the React PDF Viewer!) Tj 0 -30 Td (Features:) Tj 0 -24 Td (- Page Navigation & Zooming) Tj 0 -24 Td (- Thumbnails & Outline Sidebar) Tj 0 -24 Td (- Drag and Drop Support) Tj 0 -24 Td (- Fullscreen & Page Rotation) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 10 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+10 0 obj
+<< /Length 295 >>
+stream
+BT /F1 24 Tf 70 700 Td (Page 2: Keyboard Shortcuts) Tj /F1 14 Tf 0 -40 Td (Arrow Left / Right: Previous / Next Page) Tj 0 -24 Td (Ctrl + Plus / Minus: Zoom In / Zoom Out) Tj 0 -24 Td (Ctrl + 0: Fit to Width) Tj 0 -24 Td (R key: Rotate Page Clockwise) Tj 0 -24 Td (F key: Toggle Fullscreen) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 12 0 R /Resources << /Font << /F1 3 0 R >> >> >>
+endobj
+12 0 obj
+<< /Length 161 >>
+stream
+BT /F1 24 Tf 70 700 Td (Page 3: Ready to use!) Tj /F1 14 Tf 0 -40 Td (You can drag and drop any PDF file here.) Tj 0 -30 Td (Enjoy reading your documents!) Tj ET
+endstream
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000009 00000 n 
+0000000074 00000 n 
+0000000144 00000 n 
+0000000214 00000 n 
+0000000285 00000 n 
+0000000376 00000 n 
+0000000464 00000 n 
+0000000590 00000 n 
+0000000947 00000 n 
+0000001074 00000 n 
+0000001421 00000 n 
+0000001549 00000 n 
+trailer
+<< /Size 13 /Root 1 0 R >>
+startxref
+1762
+%%EOF
