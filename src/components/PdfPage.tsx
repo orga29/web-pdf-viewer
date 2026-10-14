@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { PDFDocumentProxy } from 'pdfjs-dist';
+import { TextLayer } from 'pdfjs-dist';
 
 interface PdfPageProps {
   pdfDoc: PDFDocumentProxy;
@@ -19,6 +20,7 @@ export const PdfPage: React.FC<PdfPageProps> = ({
   marginClass = 'my-0.5',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const textLayerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>({
     width: 600,
@@ -46,7 +48,7 @@ export const PdfPage: React.FC<PdfPageProps> = ({
     return () => observer.disconnect();
   }, [pageNumber, onPageVisible]);
 
-  // Render canvas
+  // Render canvas & text layer
   useEffect(() => {
     let isCancelled = false;
     let renderTask: any = null;
@@ -58,10 +60,10 @@ export const PdfPage: React.FC<PdfPageProps> = ({
         if (isCancelled) return;
 
         const viewport = page.getViewport({ scale, rotation });
-        setDimensions({
-          width: Math.floor(viewport.width),
-          height: Math.floor(viewport.height),
-        });
+        const width = Math.floor(viewport.width);
+        const height = Math.floor(viewport.height);
+
+        setDimensions({ width, height });
 
         const canvas = canvasRef.current;
         if (!canvas || isCancelled) return;
@@ -72,8 +74,8 @@ export const PdfPage: React.FC<PdfPageProps> = ({
         const dpr = window.devicePixelRatio || 1;
         canvas.width = Math.floor(viewport.width * dpr);
         canvas.height = Math.floor(viewport.height * dpr);
-        canvas.style.width = `${Math.floor(viewport.width)}px`;
-        canvas.style.height = `${Math.floor(viewport.height)}px`;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
 
         const transform = dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : undefined;
 
@@ -85,6 +87,32 @@ export const PdfPage: React.FC<PdfPageProps> = ({
         });
 
         await renderTask.promise;
+        if (isCancelled) return;
+
+        // Render TextLayer for text selection and copy
+        const textLayerContainer = textLayerRef.current;
+        if (textLayerContainer) {
+          textLayerContainer.innerHTML = '';
+          textLayerContainer.style.width = `${width}px`;
+          textLayerContainer.style.height = `${height}px`;
+          textLayerContainer.style.setProperty('--total-scale-factor', `${viewport.scale}`);
+
+          try {
+            const textContent = await page.getTextContent();
+            if (isCancelled) return;
+
+            const textLayer = new TextLayer({
+              textContentSource: textContent,
+              container: textLayerContainer,
+              viewport,
+            });
+
+            await textLayer.render();
+          } catch (textErr) {
+            console.warn(`Text layer render warning on page ${pageNumber}:`, textErr);
+          }
+        }
+
         if (!isCancelled) {
           setIsLoading(false);
         }
@@ -109,7 +137,7 @@ export const PdfPage: React.FC<PdfPageProps> = ({
     <div
       ref={containerRef}
       id={`pdf-page-${pageNumber}`}
-      className={`relative ${marginClass} bg-white shadow-xl rounded-sm transition-all duration-150 mx-auto`}
+      className={`relative ${marginClass} bg-white shadow-xl rounded-sm transition-all duration-150 mx-auto select-text`}
       style={{
         width: dimensions.width,
         height: dimensions.height,
@@ -123,8 +151,16 @@ export const PdfPage: React.FC<PdfPageProps> = ({
           height: dimensions.height,
         }}
       />
+      <div
+        ref={textLayerRef}
+        className="textLayer"
+        style={{
+          width: dimensions.width,
+          height: dimensions.height,
+        }}
+      />
       {isLoading && (
-        <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center backdrop-blur-[1px]">
+        <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center backdrop-blur-[1px] pointer-events-none">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600" />
         </div>
       )}
