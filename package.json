@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:singlefile": "tsc && vite build --config vite.config.singlefile.ts && node -e \"require('fs').copyFileSync('dist-singlefile/index.html', 'pdf-viewer.html'); console.log('Successfully generated portable standalone pdf-viewer.html!')\"",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -15,7 +16,8 @@
     "@vitejs/plugin-react": "^6.1.2",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
-    "vite": "^8.3.0"
+    "vite": "^8.3.0",
+    "vite-plugin-singlefile": "^2.3.3"
   },
   "dependencies": {
     "lucide-react": "^1.57.0",

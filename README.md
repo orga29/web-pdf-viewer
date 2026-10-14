@@ -46,8 +46,16 @@ npm run dev
 ```
 ブラウザで [http://localhost:5173](http://localhost:5173) を開きます。
 
-### プロダクションビルド
+### プロダクションビルド（Web版）
 ```bash
 npm run build
 npm run preview
 ```
+
+### 単一ポータブルHTML版の生成（完全ローカル・オフライン用）
+```bash
+npm run build:singlefile
+```
+実行すると、プロジェクト直下に **`pdf-viewer.html`** が生成されます。
+このHTMLファイル1つをダブルクリックするだけで、インターネットやサーバーのない完全ローカル環境でもPDFビューアーが利用可能です。
+他の人に配布する際も、この `pdf-viewer.html` をメールやUSB等で渡すだけで安全に使ってもらえます。

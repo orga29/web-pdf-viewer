@@ -6,6 +6,7 @@ import { Sidebar } from './components/Sidebar';
 import { PdfViewer } from './components/PdfViewer';
 import { DropZone } from './components/DropZone';
 import type { ViewMode, ZoomPreset, OutlineItem } from './types';
+import { samplePdfBase64 } from './samplePdfBase64';
 import { AlertCircle, UploadCloud } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -79,13 +80,16 @@ export const App: React.FC = () => {
     setIsLoading(true);
     setErrorMessage(null);
     try {
-      const res = await fetch(`${import.meta.env.BASE_URL}sample.pdf`);
-      if (!res.ok) throw new Error('Sample PDF not found');
-      const buffer = await res.arrayBuffer();
-      await loadPdfData(buffer, 'サンプル文書 (sample.pdf)');
+      const binaryString = atob(samplePdfBase64);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      await loadPdfData(bytes.buffer, 'サンプル文書 (sample.pdf)');
     } catch (err) {
-      console.error('Error fetching sample PDF:', err);
-      setErrorMessage('サンプルPDFの取得に失敗しました。');
+      console.error('Error opening sample PDF:', err);
+      setErrorMessage('サンプルPDFの読み込みに失敗しました。');
       setIsLoading(false);
     }
   }, [loadPdfData]);

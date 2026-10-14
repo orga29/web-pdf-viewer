@@ -1,9 +1,20 @@
 import * as pdfjsLib from 'pdfjs-dist';
-import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+import pdfjsWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+import pdfjsWorkerRaw from 'pdfjs-dist/build/pdf.worker.min.mjs?raw';
 import type { OutlineItem } from './types';
 
-// Configure worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+// Configure worker: Use Blob URL for local standalone (file://) or worker URL
+try {
+  if (typeof window !== 'undefined' && window.location.protocol === 'file:') {
+    const blob = new Blob([pdfjsWorkerRaw], { type: 'application/javascript' });
+    pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(blob);
+  } else {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl;
+  }
+} catch {
+  const blob = new Blob([pdfjsWorkerRaw], { type: 'application/javascript' });
+  pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(blob);
+}
 
 export { pdfjsLib };
 
