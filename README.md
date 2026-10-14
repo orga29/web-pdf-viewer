@@ -2,6 +2,8 @@
 
 React 19 + TypeScript + Vite + Tailwind CSS + PDF.js で構築された、高機能かつ軽量なWebベースのPDF閲覧アプリケーションです。
 
+🌐 **オンラインで試す**: [https://orga29.github.io/web-pdf-viewer/](https://orga29.github.io/web-pdf-viewer/)
+
 ## 主な機能
 
 - 📄 **多様なPDF読み込み**
