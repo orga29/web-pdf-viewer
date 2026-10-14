@@ -79,7 +79,7 @@ export const App: React.FC = () => {
     setIsLoading(true);
     setErrorMessage(null);
     try {
-      const res = await fetch('/sample.pdf');
+      const res = await fetch(`${import.meta.env.BASE_URL}sample.pdf`);
       if (!res.ok) throw new Error('Sample PDF not found');
       const buffer = await res.arrayBuffer();
       await loadPdfData(buffer, 'サンプル文書 (sample.pdf)');
