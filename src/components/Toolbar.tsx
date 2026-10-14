@@ -179,7 +179,6 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <option value="150" className="bg-slate-800 text-slate-200">150%</option>
             <option value="200" className="bg-slate-800 text-slate-200">200%</option>
             <option value="fit-width" className="bg-slate-800 text-slate-200">幅に合わせる</option>
-            <option value="fit-height" className="bg-slate-800 text-slate-200">高さに合わせる</option>
             <option value="fit-page" className="bg-slate-800 text-slate-200">全体を表示</option>
           </select>
 
